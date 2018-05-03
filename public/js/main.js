@@ -2,8 +2,8 @@ var ENDPOINT = 'https://aboyon-minesweeper-api.herokuapp.com/';
 
 function load_games() {
   var endpoint = ENDPOINT + '/games/';
+  $('#game_container').html('loading all your games...');
   $.get(endpoint, {}, function(data){
-    $('#game_container').html('loading games...');
   },'json').done(function(data) {
     $('#game_container').html('<button type="button" class="btn btn-primary float-right" onClick="create_game();">Create game</button>');
     $('#game_container').append('<h2>Hi '+localStorage['user_name']+' these are all your games</h2>');
@@ -15,10 +15,12 @@ function load_games() {
   })
 }
 
-function load_game(id) {
+function load_game(id, warning = true) {
   var endpoint = ENDPOINT + '/games/' + id
-  $.get(endpoint, {}, function(data){
+  if (warning == true) {
     $('#game_container').html('loading game...');
+  }
+  $.get(endpoint, {}, function(data){
   },'json').done(function(data) {
     $('#game_container').html('');
     for (var col = 0; col < data.cols; col++) {
@@ -49,7 +51,6 @@ function cell_builder(game_id, x,y, square) {
   .attr("data-y", y)
   .attr("data-revealed", square.revealed)
   .attr("data-game-id", game_id)
-  .click(square_click_hander)
   .addClass('square')
 
   if (square.revealed == true) {
@@ -61,6 +62,7 @@ function cell_builder(game_id, x,y, square) {
       cell.removeClass('revealed').addClass('bomb')
     }
   } else {
+    cell.click(square_click_hander)
     cell.addClass('unrevealed')
   }
 
@@ -69,13 +71,15 @@ function cell_builder(game_id, x,y, square) {
 
 function square_click_hander(event) {
   cell = $(this);
+  $('.warnings').html('wait..');
   var endpoint = ENDPOINT + '/games/' + cell.data('game-id') + '/reveal/'+cell.data('x')+'/'+cell.data('y');
   $.ajax({
     url: endpoint,
     type: 'PUT',
     data: "",
     success: function(data) {
-      load_game(cell.data('game-id'))
+      load_game(cell.data('game-id'), false);
+      $('.warnings').html('&nbsp;');
     }
   });
 }
@@ -90,6 +94,7 @@ function sign_in() {
     e.preventDefault();
     var that = $(this);
     var endpoint = ENDPOINT + '/sessions/';
+    $('.warnings').html('verifying credentials, please wait...');
     $.post(endpoint, {
       "session":{
         "email": $('#signin_email').val(),
@@ -100,10 +105,11 @@ function sign_in() {
       },'json').done(function(data){
         localStorage['sessionToken'] = data.session_token
         localStorage['user_name'] = data.name
+        $('.warnings').html('');
         user_dashboard();
       }).fail(function(){
         that.attr('disabled', false);
-        alert('Wrong credentials')
+        $('.warnings').html('<b>wrong credentials</b>');
       })
   })
 }
@@ -116,6 +122,7 @@ function sign_up() {
   $("#sign_up").show();
   $('.form-signup .btn-block').click(function(e){
     e.preventDefault();
+    $('.warnings').html('creating user, please wait...');
     var that = $(this);
     var endpoint = ENDPOINT + '/users/';
     $.post(endpoint, {
@@ -125,12 +132,15 @@ function sign_up() {
         "password": $('#signup_password').val()
         }
       },function(data){
+        localStorage['sessionToken'] = data.session_token
+        localStorage['user_name'] = data.name
         that.attr('disabled', true);
       },'json').done(function(data){
+        $('.warnings').html('');
         user_dashboard();
       }).fail(function(){
         that.attr('disabled', false);
-        alert('API Error creating your user')
+        $('.warnings').html('<b>API Error creating your user</b>');
       })
   })
 }
