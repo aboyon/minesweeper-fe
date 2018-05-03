@@ -31,6 +31,10 @@ function load_game(id) {
         }
       }
     }
+    if (data.terminated == true) {
+      $('#game_container .square').unbind('click');
+      $('#game_container .unrevealed').addClass('smile')
+    }
   }).fail(function(data) {
     console.log('Error')
   })
@@ -56,6 +60,8 @@ function cell_builder(game_id, x,y, square) {
     } else if (square.is_bomb == true) {
       cell.removeClass('revealed').addClass('bomb')
     }
+  } else {
+    cell.addClass('unrevealed')
   }
 
   return cell
@@ -162,6 +168,8 @@ function game_card(game) {
   );
   if (game.over == true) {
     card_body.append('<span class="badge badge-danger float-right">Game Over</span>')
+  } else if (game.terminated == true) {
+    card_body.append('<span class="badge badge-success float-right">You won!</span>')
   }
   card_body.append('<a href="#" onClick="load_game('+game.id+')" class="btn btn-primary">View game</a>')
   card.append(card_body);

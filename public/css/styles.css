@@ -18,6 +18,8 @@
 .game_card {
   width: 25%;
   float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .square {
@@ -51,6 +53,16 @@
   border-top:1px solid #666;
   background-color: #ffc107;
   background-image: url('/images/bomb-svgrepo-com.svg');
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.smile {
+  border-left:1px solid #666;
+  border-top:1px solid #666;
+  background-color: #28a745;
+  background-image: url('/images/smile.svg');
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center center;
