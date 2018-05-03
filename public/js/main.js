@@ -1,4 +1,4 @@
-var ENDPOINT = 'http://localhost:3000/';
+var ENDPOINT = 'https://aboyon-minesweeper-api.herokuapp.com/';
 
 function load_games() {
   var endpoint = ENDPOINT + '/games/';
