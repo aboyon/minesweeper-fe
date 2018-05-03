@@ -202,13 +202,13 @@ function create_game() {
 }
 
 $(document.body).ready(function(){
-  if (localStorage['sessionToken'] != '' && localStorage['sessionToken'] != 'null') {
-    user_dashboard();
-  } else {
+  if (!localStorage['sessionToken'] || localStorage['sessionToken'] == '' || localStorage['sessionToken'] == 'null') {
     $('#games_btn').hide();
     $('#sign_out_btn').hide();
     $('#sign_in_btn').show();
     $('#sign_up_btn').show();
     sign_in();
+  } else {
+    user_dashboard();
   }
 })
