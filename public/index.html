@@ -1,0 +1,117 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Minesweeper</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="css/styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Minesweeper</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item" id="sign_in_btn">
+            <a class="nav-link" href="javascript:;" onClick="sign_in();">Sign In</a>
+          </li>
+          <li class="nav-item" id="sign_up_btn">
+            <a class="nav-link" href="javascript:;" onClick="sign_up();">Sign up</a>
+          </li>
+          <li class="nav-item" id="sign_out_btn">
+            <a class="nav-link" href="javascript:;" onClick="sign_out();">Sign out</a>
+          </li>
+          <li class="nav-item" id="games_btn">
+            <a class="nav-link" href="javascript:;" onClick="load_games();">Games</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="container">
+
+      <div class="starter-template">
+        <h1>Minesweeper</h1>
+        <div id="game_container"></div>
+        <div id="game_list"></div>
+        <div id="game_form">
+          <form>
+            <img class="mb-4" src="/images/bomb-svgrepo-com.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Create new game</h1>
+            <div class="form-group row">
+              <label for="game_rows" class="col-sm-2 col-form-label">Rows</label>
+              <div class="col-sm-4">
+                <input type="number" min="1" class="form-control" id="game_rows" placeholder="Rows, e.g 5" value="3">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="game_cols" class="col-sm-2 col-form-label">Columns</label>
+              <div class="col-sm-4">
+                <input type="number" min="1" class="form-control" id="game_cols" placeholder="Cols, e.g 5" value="3">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="game_bombs" class="col-sm-2 col-form-label">Bombs</label>
+              <div class="col-sm-4">
+                <input type="number" min="1" class="form-control" id="game_bombs" placeholder="Bombs in game, e.g 2" value="1">
+              </div>
+            </div>
+            <hr />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+          </form>
+        </div>
+        <div id="sign_in">
+          <form class="form-signin">
+            <img class="mb-4" src="/images/bomb-svgrepo-com.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="signin_email" class="sr-only">Email address</label>
+            <input type="email" id="signin_email" class="form-control" placeholder="Email address" required autofocus>
+            <label for="signin_password" class="sr-only">Password</label>
+            <input type="password" id="signin_password" class="form-control" placeholder="Password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          </form>
+        </div>
+
+        <div id="sign_up">
+          <form class="form-signup">
+            <img class="mb-4" src="/images/bomb-svgrepo-com.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Create account</h1>
+            <label for="signup_name" class="sr-only">Your name</label>
+            <input type="email" id="signup_name" class="form-control" placeholder="Email address" required autofocus>
+            <label for="signup_email" class="sr-only">Email address</label>
+            <input type="email" id="signup_email" class="form-control" placeholder="Email address" required autofocus>
+            <label for="signup_password" class="sr-only">Password</label>
+            <input type="password" id="signup_password" class="form-control" placeholder="Password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          </form>
+        </div>
+      </div>
+
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
