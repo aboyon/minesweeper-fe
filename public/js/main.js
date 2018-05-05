@@ -22,24 +22,28 @@ function load_game(id, warning = true) {
   }
   $.get(endpoint, {}, function(data){
   },'json').done(function(data) {
-    $('#game_container').html('');
-    for (var col = 0; col < data.cols; col++) {
-      for (var row = 0; row < data.rows; row++) {
-        square = $.grep(data.squares, function(square) {
-          return (square.x == col && square.y == row);
-        });
-        if (square[0]) {
-          $('#game_container').append(cell_builder(id, col, row, square[0]));
-        }
-      }
-    }
-    if (data.terminated == true) {
-      $('#game_container .square').unbind('click');
-      $('#game_container .unrevealed').addClass('smile')
-    }
+    update_game_status(data);
   }).fail(function(data) {
     console.log('Error')
   })
+}
+
+function update_game_status(game) {
+  $('#game_container').html('');
+  for (var col = 0; col < game.cols; col++) {
+    for (var row = 0; row < game.rows; row++) {
+      square = $.grep(game.squares, function(square) {
+        return (square.x == col && square.y == row);
+      });
+      if (square[0]) {
+        $('#game_container').append(cell_builder(game.id, col, row, square[0]));
+      }
+    }
+  }
+  if (game.terminated == true) {
+    $('#game_container .square').unbind('click');
+    $('#game_container .unrevealed').addClass('smile')
+  }
 }
 
 function cell_builder(game_id, x,y, square) {
@@ -78,7 +82,7 @@ function square_click_hander(event) {
     type: 'PUT',
     data: "",
     success: function(data) {
-      load_game(cell.data('game-id'), false);
+      update_game_status(data);
       $('.warnings').html('&nbsp;');
     }
   });
